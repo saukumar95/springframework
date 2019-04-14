@@ -1,13 +1,7 @@
-package com.saurabh.domains;
+package com.saurabh.vo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class CustomerVO {
 
-@Document(collection = "customers")
-public class Customer {
-
-	@Id
-	private String id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -15,30 +9,6 @@ public class Customer {
 	private String city;
 	private String state;
 	private String zipCode;
-
-	public Customer() {
-
-	}
-
-	public Customer(String id, String firstName, String lastName, String email, String phoneNumber, String city,
-			String state, String zipCode) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -95,4 +65,5 @@ public class Customer {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Core Online Tutorial - Show Customer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"
+	integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="row container-fluid">
+		<div class="col-xs-8 col-md-8">
+			<h3>
+				<a href="/customers" class="btn btn-lg btn-primary"><span
+					class="glyphicon glyphicon-list"></span> Customer</a>
+			</h3>
+			<h2>Create Customer</h2>
+			<form action="/save" method="POST">
+				<div class="form-group">
+					<label for="email">First Name:</label> <input type="text"
+						class="form-control" name="firstName" />
+				</div>
+				<div class="form-group">
+					<label for="email">Last Name</label> <input type="text"
+						class="form-control" name="lastName" />
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label> <input type="email"
+						class="form-control" name="email" />
+				</div>
+				<div class="form-group">
+					<label for="email">Phone Number</label> <input type="text"
+						class="form-control" name="phoneNumber" />
+				</div>
+				<div class="form-group">
+					<label for="email">City</label> <input type="text"
+						class="form-control" name="city" />
+				</div>
+				<div class="form-group">
+					<label for="email">State</label> <input type="text"
+						class="form-control" name="state" />
+				</div>
+
+				<div class="form-group">
+					<label for="email">Zip Code</label> <input type="text"
+						class="form-control" name="zipCode" />
+				</div>
+				<button type="submit" class="btn btn-success">Save</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

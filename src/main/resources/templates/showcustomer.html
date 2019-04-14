@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<title>Spring Core Online Tutorial - Show Customer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"
+	integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	crossorigin="anonymous"></script>
+
+<head>
+<title>Show Customer</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="col-xs-8 col-md-8">
+			<h3>
+				<a href="/customers" class="btn btn-primary"><span
+					class="glyphicon glyphicon-list"></span> Customer</a>
+			</h3>
+			<h2 th:text="${customer.firstName}"></h2>
+			<dl class="list">
+				<dt>First Name</dt>
+				<dd th:text="${customer.firstName}"></dd>
+				<dt>Last Name</dt>
+				<dd th:text="${customer.lastName}"></dd>
+				<dt>Email</dt>
+				<dd th:text="${customer.email}"></dd>
+				<dt>Phone Number</dt>
+				<dd th:text="${customer.phoneNumber}"></dd>
+				<dt>City</dt>
+				<dd th:text="${customer.city}"></dd>
+				<dt>State</dt>
+				<dd th:text="${customer.state}"></dd>
+				<dt>Zip Code</dt>
+				<dd th:text="${customer.zipCode}"></dd>
+			</dl>
+			<form action="/customer/delete">
+				<input type="hidden" name="id" th:value="${customer.id}" />
+				<h2>
+					<input type="submit" class="btn btn-danger" value="Delete"
+						onclick="return confirm('Are you sure?');" /> <a
+						th:href="@{'/customer/edit/' + ${customer.id}}"
+						class="btn btn-warning">Edit</a>
+				</h2>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

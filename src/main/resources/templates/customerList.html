@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Spring Core Online Tutorial - List Products</title>
+<title>Spring Core Online Tutorial - List Customers</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel="stylesheet"
@@ -9,7 +9,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
-<script src="https://code.jquery.com/jquery-3.3.1-2.min.js"
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"
 	integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
 	crossorigin="anonymous"></script>
 
@@ -20,7 +20,6 @@
 			<h2>Customer List</h2>
 			<table class="table table-striped">
 				<tr>
-					<th>Id</th>
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Phone Number</th>
@@ -30,8 +29,8 @@
 					<th>Zip Code</th>
 				</tr>
 				<tr th:each="customer : ${customers}">
-					<td th:text="${customer.id}">Id</td>
-					<td th:text="${customer.firstName}">First Name</td>
+					<td><a th:text="${customer.firstName}"
+						th:href="@{'/customer/' + ${customer.id}}"></a></td>
 					<td th:text="${customer.lastName}">Last Name</td>
 					<td th:text="${customer.phoneNumber}">Phone Number</td>
 					<td th:text="${customer.email}">Email</td>
@@ -40,6 +39,8 @@
 					<td th:text="${customer.zipCode}">ZipCode</td>
 				</tr>
 			</table>
+
+			<a th:href="@{'/customer/new'}">New Customer</a>
 		</div>
 	</div>
 
