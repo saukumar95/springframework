@@ -90,7 +90,7 @@ public class CustomerControllerTest {
 
 		Customer customer = new Customer();
 
-		customer.setId(id);
+		customer.set_id(id);
 		customer.setFirstName(firstName);
 		customer.setLastName(lastName);
 		customer.setEmail(email);

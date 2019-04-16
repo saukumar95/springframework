@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
 
 	@Id
-	private String id;
+	private String _id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -20,9 +20,9 @@ public class Customer {
 
 	}
 
-	public Customer(String id, String firstName, String lastName, String email, String phoneNumber, String city,
+	public Customer(String _id, String firstName, String lastName, String email, String phoneNumber, String city,
 			String state, String zipCode) {
-		this.id = id;
+		this._id = _id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -32,12 +32,12 @@ public class Customer {
 		this.zipCode = zipCode;
 	}
 
-	public String getId() {
-		return id;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getFirstName() {

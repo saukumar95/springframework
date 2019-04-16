@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saurabh.domains.Customer;
 import com.saurabh.services.CustomerRepository;
-import com.saurabh.vo.CustomerVO;
 
 @Controller
 public class CustomerContoller {
@@ -36,24 +35,26 @@ public class CustomerContoller {
 
 	@RequestMapping("/customer/new")
 	public String create(Model model) {
+		model.addAttribute("customer", new Customer());
 		return "createcustomer";
 	}
 
 	@RequestMapping("/save")
-	public String save(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email,
-			@RequestParam String phoneNumber, @RequestParam String city, @RequestParam String state,
-			@RequestParam String zipCode) {
-		Customer customer = new Customer();
-		customer.setFirstName(firstName);
-		customer.setLastName(lastName);
-		customer.setEmail(email);
-		customer.setPhoneNumber(phoneNumber);
-		customer.setCity(city);
-		customer.setState(state);
-		customer.setZipCode(zipCode);
-		customerRepository.save(customer);
+	public String save(Customer customer) {
+		Customer newCustomer = customerRepository.save(customer);
+		return "redirect:/customer/" + newCustomer.get_id();
+	}
 
-		return "redirect:/customer/" + customer.getId();
+	@RequestMapping("/customer/edit/{id}")
+	public String edit(@PathVariable String id, Model model) {
+		customerRepository.findById(id).ifPresent(customerDetail -> model.addAttribute("customer", customerDetail));
+		return "createcustomer";
+	}
+
+	@RequestMapping("/customer/delete")
+	public String delete(@RequestParam String id) {
+		customerRepository.deleteById(id);
+		return "redirect:/customers";
 	}
 
 }

@@ -21,37 +21,54 @@
 					class="glyphicon glyphicon-list"></span> Customer</a>
 			</h3>
 			<h2>Create Customer</h2>
-			<form action="/save" method="POST">
+			<form class="form-horizontal" th:object="${customer}"
+				th:action="@{/save}" method="post">
+				<input type="hidden" th:field="*{_id}" />
 				<div class="form-group">
-					<label for="email">First Name:</label> <input type="text"
-						class="form-control" name="firstName" />
+					<label class="col-sm-2 control-label">First Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{firstName}" />
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="email">Last Name</label> <input type="text"
-						class="form-control" name="lastName" />
+					<label class="col-sm-2 control-label">Last Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{lastName}" />
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label> <input type="email"
-						class="form-control" name="email" />
+					<label class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{email}" />
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="email">Phone Number</label> <input type="text"
-						class="form-control" name="phoneNumber" />
+					<label class="col-sm-2 control-label">Phone Number</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{phoneNumber}" />
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="email">City</label> <input type="text"
-						class="form-control" name="city" />
+					<label class="col-sm-2 control-label">City</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{city}" />
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="email">State</label> <input type="text"
-						class="form-control" name="state" />
+					<label class="col-sm-2 control-label">State</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{state}" />
+					</div>
 				</div>
-
 				<div class="form-group">
-					<label for="email">Zip Code</label> <input type="text"
-						class="form-control" name="zipCode" />
+					<label class="col-sm-2 control-label">Zip Code</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{zipCode}" />
+					</div>
 				</div>
-				<button type="submit" class="btn btn-success">Save</button>
+				<div class="row">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>
