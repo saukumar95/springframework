@@ -2,6 +2,9 @@ package com.saurabh.controllers;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,6 +19,7 @@ import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
@@ -24,6 +28,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.saurabh.domains.Address;
 import com.saurabh.domains.Customer;
 import com.saurabh.services.CustomerRepository;
 
@@ -55,18 +60,15 @@ public class CustomerControllerTest {
 				.andExpect(model().attribute("customers", hasSize(2)));
 	}
 
-//	@Test
-//	public void testShow() throws Exception {
-//		String id = "5cb2c7eeede4ed8eef2725d4";
-//
-//		Customer cs = new Customer();
-//
-//		when(customerReporsitory.findById(id)).thenReturn(Optional.of(cs));
-//
-//		mockMvc.perform(get("/customer/5cb2c7eeede4ed8eef2725d4")).andExpect(status().isOk())
-//				.andExpect(view().name("showcustomer"))
-//				.andExpect(model().attribute("attribute", instanceOf(Optional.class)));
-//	}
+	@Test
+	public void testShow() throws Exception {
+		String id = "1";
+
+		when(customerReporsitory.findByObjectId(id)).thenReturn(new Customer());
+
+		mockMvc.perform(get("/customer/1")).andExpect(status().isOk()).andExpect(view().name("showcustomer"))
+				.andExpect(model().attribute("customer", instanceOf(Customer.class)));
+	}
 
 	@Test
 	public void testNewCustomer() throws Exception {
@@ -78,7 +80,7 @@ public class CustomerControllerTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testSave() throws Exception {
-		String id = "5cb2c7eeede4ed8eef2725d4";
+		String _id = "1";
 
 		String firstName = "wcvgss";
 		String lastName = "sfsfsd";
@@ -87,10 +89,13 @@ public class CustomerControllerTest {
 		String city = "wers";
 		String state = "ssewrw";
 		String zipCode = "234234";
+		String addressLineOne = "dsfsdfdsfs";
+		String addressLineTwo = "sdfsdfsdf";
 
 		Customer customer = new Customer();
+		Address address = new Address();
 
-		customer.set_id(id);
+		customer.set_id(_id);
 		customer.setFirstName(firstName);
 		customer.setLastName(lastName);
 		customer.setEmail(email);
@@ -98,13 +103,52 @@ public class CustomerControllerTest {
 		customer.setState(state);
 		customer.setPhoneNumber(phoneNumber);
 		customer.setZipCode(zipCode);
+		address.setAddressLineOne(addressLineOne);
+		address.setAddressLineTwo(addressLineTwo);
+		customer.setAddress(address);
 
 		when(customerReporsitory.save(Matchers.<Customer>any())).thenReturn(customer);
 
-		mockMvc.perform(post("/save").param("id", id).param("firstName", firstName).param("lastName", lastName)
+		mockMvc.perform(post("/save").param("_id", _id).param("firstName", firstName).param("lastName", lastName)
 				.param("email", email).param("phoneNumber", phoneNumber).param("city", city).param("state", state)
-				.param("zipCode", zipCode)).andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/customer/5cb2c7eeede4ed8eef2725d4"));
+				.param("zipCode", zipCode).param("address.addressLineOne", addressLineOne)
+				.param("address.addressLineTwo", addressLineTwo)).andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/customer/1"));
+
+		ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+		verify(customerReporsitory).save(customerCaptor.capture());
+
+		Customer boundCustomer = customerCaptor.getValue();
+
+		assertEquals(firstName, boundCustomer.getFirstName());
+		assertEquals(lastName, boundCustomer.getLastName());
+		assertEquals(addressLineOne, boundCustomer.getAddress().getAddressLineOne());
+		assertEquals(addressLineTwo, boundCustomer.getAddress().getAddressLineTwo());
+		assertEquals(city, boundCustomer.getCity());
+		assertEquals(state, boundCustomer.getState());
+		assertEquals(zipCode, boundCustomer.getZipCode());
+		assertEquals(email, boundCustomer.getEmail());
+		assertEquals(phoneNumber, boundCustomer.getPhoneNumber());
+	}
+
+	@Test
+	public void testEdit() throws Exception {
+		String id = "1";
+
+		when(customerReporsitory.findByObjectId(id)).thenReturn(new Customer());
+
+		mockMvc.perform(get("/customer/edit/1")).andExpect(status().isOk()).andExpect(view().name("createcustomer"))
+				.andExpect(model().attribute("customer", instanceOf(Customer.class)));
+	}
+
+	@Test
+	public void testDelete() throws Exception {
+		String _id = "1";
+
+		mockMvc.perform(get("/customer/delete/1")).andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/customers"));
+
+		verify(customerReporsitory, times(1)).deleteById(_id);
 	}
 
 }

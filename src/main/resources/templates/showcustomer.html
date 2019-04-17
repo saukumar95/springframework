@@ -39,16 +39,15 @@
 				<dd th:text="${customer.state}"></dd>
 				<dt>Zip Code</dt>
 				<dd th:text="${customer.zipCode}"></dd>
+				<dt>Address Line 1</dt>
+				<dd th:text="${customer.address.addressLineOne}"></dd>
+				<dt>Address Line 2</dt>
+				<dd th:text="${customer.address.addressLineTwo}"></dd>
 			</dl>
-			<form action="/customer/delete">
-				<input type="hidden" name="id" th:value="${customer._id}" />
-				<h2>
-					<input type="submit" class="btn btn-danger" value="Delete"
-						onclick="return confirm('Are you sure?');" /> <a
-						th:href="@{'/customer/edit/' + ${customer._id}}"
-						class="btn btn-warning">Edit</a>
-				</h2>
-			</form>
+			<a th:href="@{'/customer/delete/' + ${customer._id}}"
+				class="btn btn-danger">Delete</a> <a
+				th:href="@{'/customer/edit/' + ${customer._id}}"
+				class="btn btn-warning">Edit</a>
 		</div>
 	</div>
 </body>

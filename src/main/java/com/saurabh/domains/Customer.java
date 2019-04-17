@@ -15,6 +15,7 @@ public class Customer {
 	private String city;
 	private String state;
 	private String zipCode;
+	private Address address;
 
 	public Customer() {
 
@@ -30,6 +31,14 @@ public class Customer {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String get_id() {

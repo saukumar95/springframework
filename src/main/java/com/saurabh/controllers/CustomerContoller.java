@@ -29,7 +29,7 @@ public class CustomerContoller {
 
 	@RequestMapping("/customer/{id}")
 	public String show(@PathVariable String id, Model model) {
-		customerRepository.findById(id).ifPresent(customerDetail -> model.addAttribute("customer", customerDetail));
+		model.addAttribute("customer", customerRepository.findByObjectId(id));
 		return "showcustomer";
 	}
 
@@ -47,12 +47,12 @@ public class CustomerContoller {
 
 	@RequestMapping("/customer/edit/{id}")
 	public String edit(@PathVariable String id, Model model) {
-		customerRepository.findById(id).ifPresent(customerDetail -> model.addAttribute("customer", customerDetail));
+		model.addAttribute("customer", customerRepository.findByObjectId(id));
 		return "createcustomer";
 	}
 
-	@RequestMapping("/customer/delete")
-	public String delete(@RequestParam String id) {
+	@RequestMapping("/customer/delete/{id}")
+	public String delete(@PathVariable String id) {
 		customerRepository.deleteById(id);
 		return "redirect:/customers";
 	}
